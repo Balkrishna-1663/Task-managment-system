@@ -1,0 +1,127 @@
+﻿@model Task_managment_system.Models.DTO.Addtask;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="form-header">Add New Task</h2>
+
+<!-- Form Styling -->
+<style>
+    .form-header {
+        color: #1ABC9C; /* Turquoise Color for header */
+        margin-bottom: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    form {
+        background-color: #2C3E50; /* Dark Blue Background */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        color: #ECF0F1; /* Light text color */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea,
+    select {
+        background-color: #34495E; /* Darker input background */
+        color: #ECF0F1; /* Light text color */
+        border: 1px solid #BDC3C7; /* Light Gray border */
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    input[type="checkbox"] {
+        margin-left: 10px;
+    }
+
+    .btn {
+        background-color: #1ABC9C; /* Turquoise Button */
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-transform: uppercase;
+        font-size: 14px;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+        .btn:hover {
+            background-color: #16A085; /* Darker Turquoise on hover */
+        }
+
+    .btn-secondary {
+        background-color: #95A5A6; /* Light Gray Button */
+    }
+
+        .btn-secondary:hover {
+            background-color: #7F8C8D; /* Darker Gray on hover */
+        }
+
+    .text-danger {
+        color: #E74C3C; /* Red for validation error messages */
+    }
+</style>
+
+<!-- Task Creation Form -->
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="CategoryId">Category</label>
+        <select asp-for="CategoryId" class="form-control">
+            <option value="1">Work</option>
+            <option value="2">Personal</option>
+            <option value="3">Study</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="Priority">Priority</label>
+        <select asp-for="Priority" class="form-control">
+            <option value="0">Low</option>
+            <option value="1">Medium</option>
+            <option value="2">High</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Status">Task Completed</label>
+        <input type="checkbox" class="form-check-input" asp-for="Status" />
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DueDate"></label>
+        <input asp-for="DueDate" type="date" class="form-control" />
+        <span asp-validation-for="DueDate" class="text-danger"></span>
+    </div>
+
+    <!-- Submit and Back Buttons -->
+    <button type="submit" class="btn btn-primary">Add Task</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to Task List</a>
+</form>

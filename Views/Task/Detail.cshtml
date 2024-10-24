@@ -1,0 +1,126 @@
+﻿@model Task_managment_system.Models.Atask
+<style>
+    body {
+        color: lightcyan;
+        background-color: darkslategrey;
+        font-family: 'Arial', sans-serif;
+    }
+
+    footer {
+        background-color: blanchedalmond;
+    }
+
+    .task-container {
+        background-color: #34495E;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        margin: 0 auto;
+        width: 60%;
+        color: #ECF0F1;
+    }
+
+    .task-detail {
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        margin-right: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .btn-success {
+        background-color: #2ECC71;
+        border: none;
+    }
+
+        .btn-success:hover {
+            background-color: #27AE60;
+        }
+
+    .btn-danger {
+        background-color: #E74C3C;
+        border: none;
+    }
+
+        .btn-danger:hover {
+            background-color: #C0392B;
+        }
+
+    .btn-secondary {
+        background-color: #95A5A6;
+        border: none;
+    }
+
+        .btn-secondary:hover {
+            background-color: #7F8C8D;
+        }
+
+    .task-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #F1C40F;
+    }
+</style>
+
+<div class="task-container">
+    <div class="task-title">Task: @Model.Title</div>
+    <div class="task-detail">Description: @Model.Description</div>
+    <div class="task-detail">Created At: @Model.CreatedAt</div>
+    <div class="task-detail">Due Date: @Model.DueDate</div>
+
+    @if (Model.CategoryId == 1)
+    {
+        <div class="task-detail">Category: Work</div>
+    }
+    else if (Model.CategoryId == 2)
+    {
+        <div class="task-detail">Category: Personal</div>
+    }
+    else if (Model.CategoryId == 3)
+    {
+        <div class="task-detail">Category: Study</div>
+    }
+    else
+    {
+        <div class="task-detail">Category: No category defined</div>
+    }
+
+    @if (Model.Priority == 0)
+    {
+        <div class="task-detail">Priority: Low</div>
+    }
+    else if (Model.Priority == 1)
+    {
+        <div class="task-detail">Priority: Medium</div>
+    }
+    else if (Model.Priority == 2)
+    {
+        <div class="task-detail">Priority: High</div>
+    }
+    else
+    {
+        <div class="task-detail">Priority: Invalid</div>
+    }
+
+    @if (Model.Status == true)
+    {
+        <div class="task-detail">Status: Completed</div>
+    }
+    else
+    {
+        <div class="task-detail">Status: Incomplete</div>
+    }
+
+    <div class="task-actions">
+        <a asp-controller="Task" asp-action="Edit" asp-route-id="@Model.TaskId" class="btn btn-success">Update</a>
+        <a asp-controller="Task" asp-action="Delete" asp-route-id="@Model.TaskId" class="btn btn-danger">Delete</a>
+        <a asp-controller="Task" asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

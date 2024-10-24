@@ -1,0 +1,217 @@
+﻿@model IEnumerable<Task_managment_system.Models.Atask>;
+@{
+    ViewData["Title"] = "Home Page";
+}@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Custom Style -->
+<style>
+    body {
+        background-color: #2C3E50; /* Dark Blue */
+        color: #ECF0F1; /* Light text color */
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+
+    .table {
+        width: 100%;
+        margin: 20px 0;
+        border-collapse: collapse;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th, .table td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ECF0F1;
+    }
+
+    .table th {
+        background-color: #1ABC9C; /* Turquoise */
+        color: white;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #34495E; /* Dark Blue */
+    }
+
+    .table tr:hover {
+        background-color: #16A085; /* Hover Color - Dark Turquoise */
+        color: #fff;
+        transition: 0.3s ease-in-out;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        background-color: #1ABC9C; /* Turquoise */
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-right: 10px;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+
+    .btn:hover {
+        background-color: #16A085; /* Dark Turquoise */
+    }
+
+    button a {
+        text-decoration: none;
+        color: white;
+    }
+
+    button a:hover {
+        color: white;
+    }
+
+    footer {
+        background-color: papayawhip;
+       color:black;
+    }
+
+    input, select {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #BDC3C7;
+        width: 100%;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    .progress {
+        margin-top: 30px;
+    }
+
+    .progress-bar {
+        background-color: #E74C3C; /* Red */
+        height: 25px;
+        border-radius: 5px;
+    }
+
+    </style>
+
+<!-- Create New Task Button -->
+<button><a asp-controller="Task" asp-action="Create" class="btn btn-light">Create New Task</a></button>
+
+<br />
+<br />
+
+<!-- Task Table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>TaskID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Created At</th>
+            <th>Due Date</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Detail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var n in Model)
+        {
+            <tr>
+                <td>@n.TaskId</td>
+                <td>@n.Title</td>
+                <td>@n.Description</td>
+                @if (n.CategoryId == 1)
+                {
+                    <td>Work</td>
+                }
+                else if (n.CategoryId == 2)
+                {
+                    <td>Personal</td>
+                }
+                else if (n.CategoryId == 3)
+                {
+                    <td>Study</td>
+                }
+                else
+                {
+                    <td>No category defined</td>
+                }
+
+                <td>@n.CreatedAt</td>
+                <td>@n.DueDate</td>
+
+                @if (n.Priority == 0)
+                {
+                    <td>Low</td>
+                }
+                else if (n.Priority == 1)
+                {
+                    <td>Medium</td>
+                }
+                else if (n.Priority == 2)
+                {
+                    <td>High</td>
+                }
+                else
+                {
+                    <td>Wrong priority</td>
+                }
+
+                @if (n.Status == true)
+                {
+                    <td>Completed</td>
+                }
+                else
+                {
+                    <td>Incomplete</td>
+                }
+
+                <td><a asp-controller="Task" asp-action="Detail" asp-route-id="@n.TaskId" class="btn btn-secondary">View</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Search Form -->
+<form method="get">
+    <div class="form-group">
+        <input type="text" name="searchQuery" placeholder="Search tasks..." class="form-control" />
+    </div>
+    <button type="submit" class="btn">Search</button>
+</form>
+
+<!-- Filter and Sorting Form -->
+<form method="get">
+    <div class="form-group">
+        <label for="statusFilter">Status</label>
+        <select name="statusFilter" class="form-control">
+            <option value="">All</option>
+            <option value="Completed">Completed</option>
+            <option value="Incomplete">Incomplete</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="categoryId">Category</label>
+        <select name="categoryId" class="form-control" asp-items="ViewBag.Categories">
+            <option value="">All</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="sortOption">Sort By</label>
+        <select name="sortOption" class="form-control">
+            <option value="DueDate">Due Date</option>
+            <option value="Priority">Priority</option>
+            <option value="CreatedAt">Created At</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn">Filter</button>
+</form>
+

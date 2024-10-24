@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Task_managment_system.Models.Category>;
+
+
+<div>
+
+    <table class="table">
+        <tr>
+            <td>   Categoryid</td>
+            <td>   task</td>
+            <td>Category name</td>
+        </tr>
+        @foreach (var cat in Model)
+        {
+            <tr>
+                <td>@cat.CategoryId</td>
+                <td>@cat.Tasks</td>
+                <td>@cat.Name</td>
+            </tr>
+        }
+    </table>
+
+</div>
