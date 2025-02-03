@@ -63,7 +63,7 @@ namespace Task_managment_system.Controllers
             switch (sortOption)
             {
                 case "DueDate":
-                    tasks = tasks.OrderBy(t => t.DueDate);
+                    tasks = tasks.OrderBy(t =>t.DueDate);
                     break;
                 case "Priority":
                     tasks = tasks.OrderByDescending(t => t.Priority);
